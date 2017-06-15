@@ -16,7 +16,7 @@ class App extends Component {
         </div>
         <Switch>
           <Route exact path="/" render={() => (
-            <h1>Welcome to the App</h1>
+            <h1>My Games App</h1>
           )}/>
           <Route exact path="/games" component={GamesPage} />
           <Route path="/games/new" component={GameForm} />
