@@ -11,15 +11,15 @@ class App extends Component {
       <div className="ui container">
         <div className="ui three item menu">
           <NavLink className="item" activeClassName="active" exact to="/">Home</NavLink>
-          <NavLink className="item" activeClassName="active" exact to="/games">Games</NavLink>
-          <NavLink className="item" activeClassName="active" exact to="/games/new">Add New Game</NavLink>
+          <NavLink className="item" activeClassName="active" exact to="/get">Get</NavLink>
+          <NavLink className="item" activeClassName="active" exact to="/get/new">Insert</NavLink>
         </div>
         <Switch>
           <Route exact path="/" render={() => (
-            <h1>My Games App</h1>
+            <h1>Shaun's MongoDB Env</h1>
           )}/>
-          <Route exact path="/games" component={GamesPage} />
-          <Route path="/games/new" component={GameForm} />
+          <Route exact path="/get" component={GamesPage} />
+          <Route path="/get/new" component={GameForm} />
         </Switch>
       </div>
     );

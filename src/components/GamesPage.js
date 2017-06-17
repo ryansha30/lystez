@@ -13,7 +13,7 @@ class GamesPage extends Component {
   render() {
     return (
       <div>
-        <h1>Games List</h1>
+        <h1>.get using fetch('')</h1>
         <GamesList games={this.props.games} />
       </div>
     )

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { saveGame } from '../redux/actions'
   
 class GameForm extends Component {
 
@@ -8,7 +11,9 @@ class GameForm extends Component {
     this.state = {
       title: '',
       cover: '',
-      errors: ''
+      errors: '',
+      loading: false,
+      done: false
     }
   }
 
@@ -33,12 +38,24 @@ class GameForm extends Component {
     if(this.state.title === '') errors.title = "All games must have a title";
     if(this.state.cover === '') errors.cover = "Please provide a cover image URL";
     this.setState({ errors })
+    const isValid = Object.keys(errors).length === 0
+
+    if(isValid) {
+      const { title, cover } = this.state;
+      this.setState({ loading: true });
+      this.props.saveGame({ title, cover }).then(
+        () => { this.setState({ done: true })},
+        (err) => err.response.json()
+          .then(({errors}) => this.setState({ errors, loading: false }))
+      );
+    }
   }
 
   render() {
-    return(
-      <form className="ui form" onSubmit={this.handleSubmit}>
-        <h1>Add New Game</h1>
+    const form = (
+      <form className={classnames('ui', 'form', { loading: this.state.loading })} onSubmit={this.handleSubmit}>
+        <h1>Insert data</h1>
+        {!!this.state.errors.global && <div className="ui negative message"><p>{this.state.errors.global}</p></div>}
         <div className={classnames('field', { error: !!this.state.errors.title })}>
           <label htmlFor="title">Title</label>
           <input
@@ -52,7 +69,7 @@ class GameForm extends Component {
           <span>{this.state.errors.title}</span>
         </div>
         <div className={classnames('field', { error: this.state.errors.cover })}>
-          <label htmlFor="cover">Cover URL</label>
+          <label htmlFor="cover">URL</label>
           <input
             name="cover"
             id="cover"
@@ -74,8 +91,13 @@ class GameForm extends Component {
           <button className="ui primary button">Save</button>
         </div>
       </form>
+    );
+    return(
+      <div>
+        { this.state.done ? <Redirect to="/get" /> : form }
+      </div>
     )
   }
 }
 
-export default GameForm;
+export default connect(null, { saveGame })(GameForm);
