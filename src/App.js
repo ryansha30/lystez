@@ -20,6 +20,7 @@ class App extends Component {
           )}/>
           <Route exact path="/get" component={GamesPage} />
           <Route path="/get/new" component={GameForm} />
+          <Route path="/get/:_id" component={GameForm} />
         </Switch>
       </div>
     );
