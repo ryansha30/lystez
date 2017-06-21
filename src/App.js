@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Switch, NavLink, Route } from 'react-router-dom';
 //import logo from './logo.svg';
 import GamesPage from './components/GamesPage';
-import GameForm from './components/GameForm';
+import GameFormPage from './components/GameFormPage';
 import './App.css';
 
 class App extends Component {
@@ -19,8 +19,8 @@ class App extends Component {
             <h1>Shaun's MongoDB Env</h1>
           )}/>
           <Route exact path="/get" component={GamesPage} />
-          <Route path="/get/new" component={GameForm} />
-          <Route path="/get/:_id" component={GameForm} />
+          <Route path="/get/new" component={GameFormPage} />
+          <Route path="/get/:_id" component={GameFormPage} />
         </Switch>
       </div>
     );
